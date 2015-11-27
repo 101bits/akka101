@@ -1,1 +1,2 @@
 [![Build Status](https://travis-ci.org/hhimanshu/akka101.svg?branch=master)](https://travis-ci.org/hhimanshu/akka101)
+[![Coverage Status](https://coveralls.io/repos/hhimanshu/akka101/badge.svg?branch=master&service=github)](https://coveralls.io/github/hhimanshu/akka101?branch=master)
