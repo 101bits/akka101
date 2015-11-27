@@ -25,6 +25,14 @@ object Akka101Build extends Build {
   lazy val cluster_simple = project
     .settings(commonSettings: _*) configs MultiJvm
 
+  lazy val persistence = project
+    .settings(commonSettings: _*)
+    .settings(libraryDependencies ++= Seq(
+      "com.typesafe.akka" %% "akka-persistence" % "2.4-SNAPSHOT",
+      "org.iq80.leveldb" % "leveldb" % "0.7",
+      "org.fusesource.leveldbjni" % "leveldbjni-all" % "1.8"
+    ))
+
   fork in run := true
 
 
