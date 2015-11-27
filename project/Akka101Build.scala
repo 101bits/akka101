@@ -7,7 +7,7 @@ object Akka101Build extends Build {
   val akkaVersion = "2.4.0"
   val scalaVer = "2.11.7"
 
-  lazy val commonSettings = Defaults.defaultSettings ++ multiJvmSettings ++ Seq(
+  lazy val commonSettings = Defaults.coreDefaultSettings ++ multiJvmSettings ++ Seq(
     organization := "com.learner",
     version := "0.1.0",
     scalaVersion := scalaVer,
@@ -29,15 +29,13 @@ object Akka101Build extends Build {
     .settings(commonSettings: _*) configs MultiJvm
 
   lazy val persistence = project
+    .dependsOn(test_harness % "test->test")
+    .settings(resolvers ++= Seq("dnvriend at bintray" at "http://dl.bintray.com/dnvriend/maven"))
     .settings(commonSettings: _*)
     .settings(libraryDependencies ++= Seq(
       "com.typesafe.akka" %% "akka-persistence" % "2.4-SNAPSHOT",
-      "org.iq80.leveldb" % "leveldb" % "0.7",
-      "org.fusesource.leveldbjni" % "leveldbjni-all" % "1.8"
+      "com.github.dnvriend" %% "akka-persistence-inmemory" % "1.1.5" % "test"
     ))
-    .dependsOn(test_harness % "test->test")
-
-  fork in run := true
 
   lazy val multiJvmSettings = SbtMultiJvm.multiJvmSettings ++ Seq(
     version := akkaVersion,
