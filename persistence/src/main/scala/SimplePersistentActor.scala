@@ -42,6 +42,6 @@ class SimplePersistentActor extends PersistentActor with ActorLogging {
     case ThrowException => throw new Exception("The Persistent Actor is dying.")
     case SnapShot => saveSnapshot(workQueue)
     case PrintState => println(workQueue)
-    case GetState => sender ! workQueue
+    case GetState => sender ! WorkQueue(workQueue.queue.reverse)
   }
 }

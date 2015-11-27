@@ -17,12 +17,9 @@ class SimplePersistentActorSpec extends BaseTestKit(ActorSystem("persistence-tes
 
       persistentActor ! GetState
       expectMsgPF() {
-        /**
-          * todo
-          * 1. use in-memory db
-          * 2. assert order of jobs
-          */
-        case WorkQueue(backlog) => println(backlog)
+        case WorkQueue(backlog) =>
+          backlog.length shouldBe 5
+          backlog.map(_.name) should equal(List("file1", "file2", "file3", "file4", "file5"))
       }
     }
   }
