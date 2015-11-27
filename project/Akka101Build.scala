@@ -27,6 +27,7 @@ object Akka101Build extends Build {
 
   fork in run := true
 
+
   lazy val multiJvmSettings = SbtMultiJvm.multiJvmSettings ++ Seq(
     name := "akka-multi-jvm",
     version := "2.3.14",
