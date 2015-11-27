@@ -1,7 +1,7 @@
 import akka.actor.{ActorSystem, Props}
 import scala.concurrent.duration._
 
-class SimplePersistentActorSpec extends TestKitBase(ActorSystem("persistence-test")) {
+class SimplePersistentActorSpec extends BaseTestKit(ActorSystem("persistence-test")) {
   behavior of "PersistenceActor"
 
   "Work" should "be added in order" in {
@@ -21,7 +21,6 @@ class SimplePersistentActorSpec extends TestKitBase(ActorSystem("persistence-tes
           * todo
           * 1. use in-memory db
           * 2. assert order of jobs
-          * 3. create test-harness project
           */
         case WorkQueue(backlog) => println(backlog)
       }

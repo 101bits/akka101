@@ -5,11 +5,12 @@ import sbt._
 
 object Akka101Build extends Build {
   val akkaVersion = "2.4.0"
+  val scalaVer = "2.11.7"
 
   lazy val commonSettings = Defaults.defaultSettings ++ multiJvmSettings ++ Seq(
     organization := "com.learner",
     version := "0.1.0",
-    scalaVersion := "2.11.7",
+    scalaVersion := scalaVer,
     resolvers ++= Seq(
       "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"
     ),
@@ -22,6 +23,8 @@ object Akka101Build extends Build {
     )
   )
 
+  lazy val test_harness = project.settings(commonSettings: _*)
+
   lazy val cluster_simple = project
     .settings(commonSettings: _*) configs MultiJvm
 
@@ -32,14 +35,13 @@ object Akka101Build extends Build {
       "org.iq80.leveldb" % "leveldb" % "0.7",
       "org.fusesource.leveldbjni" % "leveldbjni-all" % "1.8"
     ))
+    .dependsOn(test_harness % "test->test")
 
   fork in run := true
 
-
   lazy val multiJvmSettings = SbtMultiJvm.multiJvmSettings ++ Seq(
-    name := "akka-multi-jvm",
-    version := "2.3.14",
-    scalaVersion := "2.11.7",
+    version := akkaVersion,
+    scalaVersion := scalaVer,
     scalacOptions in Compile ++= Seq("-encoding", "UTF-8", "-target:jvm-1.6", "-deprecation", "-feature", "-unchecked", "-Xlog-reflective-calls", "-Xlint"),
     javacOptions in Compile ++= Seq("-source", "1.6", "-target", "1.6", "-Xlint:unchecked", "-Xlint:deprecation"),
     libraryDependencies ++= Seq(
