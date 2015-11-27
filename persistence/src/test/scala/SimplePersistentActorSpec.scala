@@ -7,7 +7,7 @@ class SimplePersistentActorSpec extends TestKitBase(ActorSystem("persistence-tes
   "Work" should "be added in order" in {
     val persistentActor = system.actorOf(Props[SimplePersistentActor], "simplePersistentActor")
 
-    within(1.second) {
+    within(2.second) {
       persistentActor ! AddWork(Work("file1"))
       persistentActor ! AddWork(Work("file2"))
       persistentActor ! AddWork(Work("file3"))
