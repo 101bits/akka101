@@ -22,6 +22,8 @@ object Akka101Build extends Build {
     )
   )
 
+  lazy val cluster_simple = project
+    .settings(commonSettings: _*) configs MultiJvm
 
   fork in run := true
 
